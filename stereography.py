@@ -1,11 +1,12 @@
-from vpython import sphere, vector, curve, canvas, color, scene
+from vpython import sphere, vector, curve, canvas, color, rate, scene
 
 # Create a canvas
 scene = canvas(title='Stereographic Projection', width=800, height=600, center=vector(0, 0, 0), background=color.white)
 
 # Create a sphere (representing the unit sphere)
 R = 1  # Radius of the sphere
-earth = sphere(radius=R, color=color.blue, opacity=0.5)
+center=vector(0,0,R)
+earth = sphere(pos=center, radius=R, color=color.blue, opacity=0.5)
 
 # Lists to store drawn curves
 drawn_curves_sphere = []
@@ -18,8 +19,8 @@ current_curve_plane = None
 
 # Function for reverse stereographic projection
 def stereographic_projection(x, y, z):
-    denom = 1 - z
-    return (2 * x / denom, 2 * y / denom)
+    denom = 2*R - z
+    return (2*R * x / denom, 2*R * y / denom)
 
 # Event handler for mouse down
 def on_mousedown(evt):
@@ -74,3 +75,5 @@ scene.bind('keydown', on_keydown)
 
 # Draw a grid to represent the projection plane
 plane = curve(vector(-2, -2, 0), vector(2, -2, 0), vector(2, 2, 0), vector(-2, 2, 0), vector(-2, -2, 0), color=color.black)
+while True:
+    rate(10)  # Run the loop at a reasonable rate (10 frames per second)
