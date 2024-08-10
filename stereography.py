@@ -45,7 +45,7 @@ def on_mouseup(evt):
 # Function to add point to the current curves
 def add_point(pos):
     direction = pos.norm()
-    sphere_point = direction * R
+    sphere_point = (direction * R) + center
     current_curve_sphere.append(sphere_point)
     
     # Project this point onto the plane using stereographic projection
