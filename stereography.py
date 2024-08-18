@@ -17,6 +17,8 @@ is_drawing = False
 current_curve_sphere = None
 current_curve_plane = None
 
+
+
 # Function for reverse stereographic projection
 def stereographic_projection(x, y, z):
     denom = 2*R - z
@@ -58,30 +60,7 @@ def scale_to_sphere_factor(sign, direction, pos):
     x = pow(x2,0.5)
     return x
 
-
-# Function to add point to the current curves
-def add_point(pos):
-    #print(pos)
-    normal = norm(scene.camera.axis)
-    shift = - normal * (abs(dot(normal,(center - pos))))
-    shifted_pos = pos + shift
-    
-    scaling_factor_to_sphere = pow((pow(R,2) - pow((shifted_pos - center).mag,2)),0.5)
-    sphere_point = shifted_pos - (normal * scaling_factor_to_sphere)
-    print("shift = ",shift) ; print("center = ",center); print("pos = ",pos); print("normal = ",normal); print("sphere_point = ",sphere_point)
-    current_curve_sphere.append(sphere_point)
-    
-    # Project this point onto the plane using stereographic projection
-    proj_x, proj_y = stereographic_projection(sphere_point.x, sphere_point.y, sphere_point.z)
-    proj_point = vector(proj_x, proj_y, 0)
-    
-    # Add the projected point to the plane curve
-    current_curve_plane.append(proj_point)
-
-# Event handler for key presses
-def on_keydown(evt):
-    global drawn_curves_sphere, drawn_curves_plane
-    if evt.key == 'r':
+def erase():
         # Remove all drawn curves on the sphere and the plane
         for curve_obj in drawn_curves_sphere:
             curve_obj.visible = False  # Hide the curve on the sphere
@@ -89,6 +68,40 @@ def on_keydown(evt):
             curve_obj.visible = False  # Hide the curve on the plane
         drawn_curves_sphere.clear()  # Clear the list for sphere curves
         drawn_curves_plane.clear()  # Clear the list for plane curves
+
+# Function to add point to the current curves
+def add_point(pos):
+    #print(pos)
+    normal = norm(scene.camera.axis)
+    shift = - normal * (abs(dot(normal,(center - pos))))
+    if dot(normal,center)>0:
+        shift = -shift
+    shifted_pos = pos + shift
+    temp = pow(R,2) - pow((shifted_pos - center).mag,2)
+    if temp > 0:
+        scaling_factor_to_sphere = pow(temp, 0.5)
+        sphere_point = shifted_pos - (normal * scaling_factor_to_sphere)
+        #print("shift = ",shift) ; print("center = ",center); print("pos = ",pos); print("normal = ",normal); print("sphere_point = ",sphere_point)
+        current_curve_sphere.append(sphere_point)
+    
+        # Project this point onto the plane using stereographic projection
+        proj_x, proj_y = stereographic_projection(sphere_point.x, sphere_point.y, sphere_point.z)
+        proj_point = vector(proj_x, proj_y, 0)
+    
+        # Add the projected point to the plane curve
+        current_curve_plane.append(proj_point)
+# Key dictionary
+key_actions = {
+    'r' : erase,
+} 
+# Event handler for key presses
+def on_keydown(evt):
+    global drawn_curves_sphere, drawn_curves_plane
+    action = key_actions.get(evt.key)
+    if action:
+        action()
+    
+
 
 # Bind the mouse and key events to their handlers
 scene.bind('mousedown', on_mousedown)
