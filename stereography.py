@@ -1,4 +1,4 @@
-from vpython import sphere, vector, curve, canvas, color, rate, scene
+from vpython import sphere, vector, curve, canvas, color, rate, scene, cross, dot
 
 # Create a canvas
 scene = canvas(title='Stereographic Projection', width=800, height=600, center=vector(0, 0, 0), background=color.white)
@@ -42,10 +42,29 @@ def on_mouseup(evt):
     global is_drawing
     is_drawing = False
 
+#Function to find if point is inside sphere
+def point_inside_sphere(pos):
+    distance = pos - center
+    if distance.mag < R:
+        return 1
+    else:
+        return -1
+#Scaling factor to scale viwing direction appropriately to match surface of sphere (needs corrections)
+def scale_to_sphere_factor(sign, direction, pos):
+    p2=(pos-center).mag**2
+    d2=direction.mag**2
+    x2 = (p2 + sign*(R**2))/d2
+    #print("x^2 = ",x2)
+    x = pow(x2,0.5)
+    return x
+
+
 # Function to add point to the current curves
 def add_point(pos):
+    #print(pos)
+    pos = pos - center
     direction = pos.norm()
-    sphere_point = (direction * R) + center
+    sphere_point = center - direction
     current_curve_sphere.append(sphere_point)
     
     # Project this point onto the plane using stereographic projection
