@@ -17,8 +17,6 @@ is_drawing = False
 current_curve_sphere = None
 current_curve_plane = None
 
-
-
 # Function for reverse stereographic projection
 def stereographic_projection(x, y, z):
     denom = 2*R - z
@@ -36,7 +34,7 @@ def on_mousedown(evt):
 
 # Event handler for mouse move
 def on_mousemove(evt):
-    if is_drawing:
+    if is_drawing: 
         add_point(evt.pos)
 
 # Event handler for mouse up
@@ -81,7 +79,7 @@ def add_point(pos):
     if temp > 0:
         scaling_factor_to_sphere = pow(temp, 0.5)
         sphere_point = shifted_pos - (normal * scaling_factor_to_sphere)
-        #print("shift = ",shift) ; print("center = ",center); print("pos = ",pos); print("normal = ",normal); print("sphere_point = ",sphere_point)
+        print("shift = ",shift) ; print("center = ",center); print("pos = ",pos); print("normal = ",normal); print("sphere_point = ",sphere_point)
         current_curve_sphere.append(sphere_point)
     
         # Project this point onto the plane using stereographic projection
@@ -101,8 +99,6 @@ def on_keydown(evt):
     if action:
         action()
     
-
-
 # Bind the mouse and key events to their handlers
 scene.bind('mousedown', on_mousedown)
 scene.bind('mousemove', on_mousemove)
