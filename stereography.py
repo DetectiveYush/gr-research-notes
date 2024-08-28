@@ -1,4 +1,4 @@
-from vpython import sphere, vector, curve, canvas, color, rate, scene, cross, dot, norm
+from vpython import sphere, vector, curve, canvas, color, rate, scene, cross, dot, norm, rotate
 
 # Create a canvas
 scene = canvas(title='Stereographic Projection', width=800, height=600, center=vector(0, 0, 0), background=color.white)
@@ -42,6 +42,13 @@ def on_mouseup(evt):
     global is_drawing
     is_drawing = False
 
+def point_on_sphere(pos):
+    distance = center - pos
+    if abs(distance.mag - R)<= R/10:
+        return 1
+    else:
+        return 0
+
 #Function to find if point is inside sphere
 def point_inside_sphere(pos):
     distance = center - pos
@@ -58,6 +65,13 @@ def scale_to_sphere_factor(sign, direction, pos):
     x = pow(x2,0.5)
     return x
 
+def rotate_sphere():
+    rotation_angle = 3.14159 / 4  # 45 degrees
+    rotation_axis = vector(0, 0, 1)
+
+    # Rotate the sphere's position
+    earth.pos = rotate(earth.pos, angle=rotation_angle, axis=rotation_axis)
+
 def erase():
         # Remove all drawn curves on the sphere and the plane
         for curve_obj in drawn_curves_sphere:
@@ -68,8 +82,8 @@ def erase():
         drawn_curves_plane.clear()  # Clear the list for plane curves
 
 # Function to add point to the current curves
-def add_point(pos):
-    #print(pos)
+
+def project_on_sphere(pos):
     normal = norm(scene.camera.axis)
     shift = - normal * (abs(dot(normal,(center - pos))))
     if dot(normal,center)>0:
@@ -79,7 +93,16 @@ def add_point(pos):
     if temp > 0:
         scaling_factor_to_sphere = pow(temp, 0.5)
         sphere_point = shifted_pos - (normal * scaling_factor_to_sphere)
-        print("shift = ",shift) ; print("center = ",center); print("pos = ",pos); print("normal = ",normal); print("sphere_point = ",sphere_point)
+        return(sphere_point)
+    else: 
+        return(3*center)
+
+
+def add_point(pos):
+    #print(pos)
+    sphere_point = project_on_sphere(pos)
+    if point_on_sphere(sphere_point):
+        #print("shift = ",shift) ; print("center = ",center); print("pos = ",pos); print("normal = ",normal); print("sphere_point = ",sphere_point)
         current_curve_sphere.append(sphere_point)
     
         # Project this point onto the plane using stereographic projection
@@ -91,6 +114,7 @@ def add_point(pos):
 # Key dictionary
 key_actions = {
     'r' : erase,
+    #'q' : rotate_sphere
 } 
 # Event handler for key presses
 def on_keydown(evt):
