@@ -1,0 +1,4 @@
+\beamer@sectionintoc {1}{Introduction to Teleparallelism}{3}{0}{1}
+\beamer@sectionintoc {2}{Physically Transparent and Intuitive Descriptions}{6}{0}{2}
+\beamer@sectionintoc {3}{Distinction Between Coordinate Systems and Reference Frames}{8}{0}{3}
+\beamer@sectionintoc {4}{Visualizing with Stereographic Projection}{10}{0}{4}

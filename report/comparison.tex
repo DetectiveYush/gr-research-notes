@@ -1,0 +1,122 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\begin{document}
+
+\section*{Teleparallel Equivalent of General Relativity (TEGR)}
+
+In the \textbf{Teleparallel Equivalent of General Relativity (TEGR)}, gravity is described using \textit{torsion} instead of curvature. The formulation employs \textit{tetrad (vierbein) fields} and the \textit{Weitzenböck connection}, which has torsion but no curvature.
+
+\subsection*{Key Mathematical Concepts}
+
+\begin{enumerate}
+    \item \textbf{Tetrad (Vierbein) Fields:}
+    \begin{equation}
+        g_{\mu\nu} = \eta_{ab} \, e^a_\mu \, e^b_\nu,
+    \end{equation}
+    where:
+    \begin{itemize}
+        \item $e^a_\mu$ are the tetrad fields (basis of the tangent space),
+        \item $\eta_{ab} = \text{diag}(-1, 1, 1, 1)$ is the Minkowski metric.
+    \end{itemize}
+
+    \item \textbf{Weitzenböck Connection:}
+    \begin{equation}
+        \Gamma^\lambda_{\mu\nu} = e_a^\lambda \, \partial_\mu e^a_\nu.
+    \end{equation}
+    This connection has \textit{zero curvature} but \textit{non-zero torsion}. The torsion tensor is given by:
+    \begin{equation}
+        T^\lambda_{\mu\nu} = e_a^\lambda (\partial_\mu e^a_\nu - \partial_\nu e^a_\mu).
+    \end{equation}
+
+    \item \textbf{Torsion Tensor:}
+    \begin{equation}
+        T^\lambda_{\mu\nu} = e_a^\lambda (\partial_\mu e^a_\nu - \partial_\nu e^a_\mu).
+    \end{equation}
+
+    \item \textbf{Gravitational Action in TEGR:}
+    \begin{equation}
+        T = S_\lambda^{\ \mu\nu} T^\lambda_{\mu\nu},
+    \end{equation}
+    where $S_\lambda^{\ \mu\nu}$ is the \textit{superpotential}:
+    \begin{equation}
+        S_\lambda^{\ \mu\nu} = \frac{1}{2} \left( K^{\mu\nu}_{\ \ \lambda} + \delta^\mu_\lambda \, T^{\alpha \nu}_{\ \ \alpha} - \delta^\nu_\lambda \, T^{\alpha \mu}_{\ \ \alpha} \right),
+    \end{equation}
+    and $K^{\mu\nu}_{\ \ \lambda}$ is the \textit{contorsion tensor}:
+    \begin{equation}
+        K^{\mu\nu}_{\ \ \lambda} = -\frac{1}{2} \left( T^{\mu\nu}_{\ \ \lambda} - T^{\nu \mu}_{\ \ \lambda} - T_{\lambda}^{\ \mu\nu} \right).
+    \end{equation}
+
+    \item \textbf{TEGR Field Equations:}
+    \begin{equation}
+        e \, G^{\lambda \nu} = 2 e \, \left( \nabla_\lambda T^\lambda_{\ \nu} - \frac{1}{2} g_{\lambda \nu} T \right),
+    \end{equation}
+    where $e = \det(e^a_\mu)$, and $G^{\lambda \nu}$ is the Einstein tensor.
+\end{enumerate}
+
+\subsection*{Elimination of Curvature and the Role of Torsion}
+
+\begin{itemize}
+    \item In GR, gravity is described by curvature via the Riemann curvature tensor, using the Levi-Civita connection (torsion-free).
+    \item In TEGR, curvature is eliminated in favor of a flat connection with torsion, encoded in the torsion scalar $T$.
+\end{itemize}
+
+\section*{General Relativity (GR)}
+
+In \textbf{General Relativity (GR)}, gravity is described by the curvature of spacetime, which is encoded in the \textit{metric tensor} and the \textit{Levi-Civita connection}.
+
+\subsection*{Key Mathematical Concepts}
+
+\begin{enumerate}
+    \item \textbf{Metric Tensor:}
+    \begin{equation}
+        ds^2 = g_{\mu\nu} \, dx^\mu \, dx^\nu.
+    \end{equation}
+    The metric tensor $g_{\mu\nu}$ describes the geometry of spacetime.
+
+    \item \textbf{Levi-Civita Connection (Christoffel Symbols):}
+    \begin{equation}
+        \Gamma^\lambda_{\mu\nu} = \frac{1}{2} g^{\lambda\sigma} \left( \partial_\mu g_{\nu\sigma} + \partial_\nu g_{\mu\sigma} - \partial_\sigma g_{\mu\nu} \right).
+    \end{equation}
+    This connection is torsion-free and metric-compatible.
+
+    \item \textbf{Riemann Curvature Tensor:}
+    \begin{equation}
+        R^\lambda_{\ \mu\nu\sigma} = \partial_\nu \Gamma^\lambda_{\mu\sigma} - \partial_\sigma \Gamma^\lambda_{\mu\nu} + \Gamma^\lambda_{\nu\rho} \Gamma^\rho_{\mu\sigma} - \Gamma^\lambda_{\sigma\rho} \Gamma^\rho_{\mu\nu}.
+    \end{equation}
+
+    \item \textbf{Ricci Tensor and Ricci Scalar:}
+    \begin{equation}
+        R_{\mu\nu} = R^\lambda_{\ \mu\lambda\nu}, \quad R = g^{\mu\nu} R_{\mu\nu}.
+    \end{equation}
+
+    \item \textbf{Gravitational Action in GR:}
+    \begin{equation}
+        S_{GR} = \frac{1}{2\kappa} \int d^4x \, \sqrt{-g} \, R + S_\text{matter},
+    \end{equation}
+    where $\kappa = 8\pi G$.
+
+    \item \textbf{Einstein Field Equations:}
+    \begin{equation}
+        R_{\mu\nu} - \frac{1}{2} g_{\mu\nu} R = \frac{8\pi G}{c^4} T_{\mu\nu}.
+    \end{equation}
+\end{enumerate}
+
+\section*{Comparison: GR vs. TEGR}
+
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Concept} & \textbf{GR} & \textbf{TEGR} \\
+\hline
+Fundamental Object & Metric tensor $g_{\mu\nu}$ & Tetrad fields $e^a_\mu$ \\
+Connection & Levi-Civita connection (torsion-free) & Weitzenböck connection (flat, torsion) \\
+Torsion & Zero (torsion-free) & Non-zero \\
+Curvature & Non-zero (Riemann tensor) & Zero (Weitzenböck connection) \\
+Geometrical Property & Curved spacetime geometry & Flat spacetime with torsion \\
+Action & Einstein-Hilbert action $\int \sqrt{-g} R$ & Teleparallel action $\int e T$ \\
+Field Equations & Einstein field equations & Derived from torsion scalar $T$ \\
+\hline
+\end{tabular}
+
+\end{document}

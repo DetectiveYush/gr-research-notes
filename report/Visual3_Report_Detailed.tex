@@ -1,0 +1,179 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+
+\begin{document}
+
+\title{Analysis of Two Masses in a Torsion Field with Simple Harmonic Motion}
+\author{}
+\date{}
+\maketitle
+
+\section{Introduction}
+This document provides a detailed explanation of the Python script used to simulate two masses moving in a torsion field with simple harmonic motion. The field is visualized with vector arrows representing torsion vectors, and the dynamics of the masses are calculated based on these vectors.
+
+\section{Code Explanation}
+
+\subsection{Setup}
+\begin{lstlisting}[language=Python, breaklines=true]
+from vpython import *
+
+# Set up the scene
+scene = canvas(title="Two Masses in a Torsion Field with SHM",
+               width=800, height=600, center=vector(0,0,0), background=color.black)
+\end{lstlisting}
+
+The script begins by importing the necessary `vpython` module and setting up the scene for the simulation. The `canvas` function initializes the visualization environment with a black background.
+
+\subsection{Mass Creation}
+\begin{lstlisting}[language=Python, breaklines=true]
+# Create two masses
+mass1 = sphere(pos=vector(-5, 0, 0), radius=0.5, color=color.red, make_trail=True)
+mass2 = sphere(pos=vector(5, 0, 0), radius=0.5, color=color.blue, make_trail=True)
+\end{lstlisting}
+
+Two spheres are created to represent the masses. `mass1` and `mass2` are initialized with positions, radii, colors, and trails.
+
+\subsection{Initial Velocities}
+\begin{lstlisting}[language=Python, breaklines=true]
+# Define initial velocities (small velocities towards each other)
+mass1.velocity = vector(0.03, 0.03, 0)
+mass2.velocity = vector(-0.03, -0.03, 0)
+\end{lstlisting}
+
+The initial velocities of the masses are set. Both masses have small velocities directed towards each other but not directly.
+
+\subsection{Torsion Field Parameters}
+\begin{lstlisting}[language=Python, breaklines=true]
+# Parameters for the torsion field visualization
+grid_range = 10  # Increase the range for a larger field
+spacing = 1
+twist_factor = 2
+\end{lstlisting}
+
+Parameters for the torsion field visualization are defined. `grid_range` sets the range of the grid for visualizing torsion vectors. `spacing` defines the distance between grid points, and `twist_factor` controls the strength of the torsion effect.
+
+\subsection{Creating Torsion Field Vectors}
+\begin{lstlisting}[language=Python, breaklines=true]
+# Create a flat grid of twisting vectors
+arrows = []
+for x in range(-grid_range, grid_range + 1, spacing):
+    for y in range(-grid_range, grid_range + 1, spacing):
+        if abs(x) == 5 and y == 0:
+            continue  # Skip the positions of the masses
+        
+        # Calculate position of the vector origin
+        position = vector(x, y, 0)
+        
+        # Define torsion effect - vectors twist around both masses
+        r1 = mag(position - mass1.pos)
+        r2 = mag(position - mass2.pos)
+        
+        if r1 != 0:
+            direction1 = vector(-(position.y - mass1.pos.y), position.x - mass1.pos.x, 0) * (twist_factor / (r1 ** 2 + 1))
+        else:
+            direction1 = vector(0, 0, 0)
+        
+        if r2 != 0:
+            direction2 = vector(-(position.y - mass2.pos.y), position.x - mass2.pos.x, 0) * (twist_factor / (r2 ** 2 + 1))
+        else:
+            direction2 = vector(0, 0, 0)
+        
+        # Total direction is the combined effect of torsion fields
+        total_direction = direction1 + direction2
+
+        # Create an arrow to represent the vector field
+        a = arrow(pos=position, axis=total_direction, color=color.green)
+        arrows.append(a)
+\end{lstlisting}
+
+This block creates a grid of vectors to represent the torsion field. For each grid point, the script calculates the direction of the vector due to each mass. The torsion vector directions are combined to get the total direction, and an arrow is created to visualize it.
+
+The direction vectors are calculated as follows:
+
+\[
+\text{direction}_1 = \frac{\text{twist\_factor}}{r_1^2 + 1} \cdot \left( -(y - y_1), x - x_1, 0 \right)
+\]
+
+\[
+\text{direction}_2 = \frac{\text{twist\_factor}}{r_2^2 + 1} \cdot \left( -(y - y_2), x - x_2, 0 \right)
+\]
+
+where \( \mathbf{r}_1 = \|\mathbf{position} - \mathbf{mass1.pos}\| \) and \( \mathbf{r}_2 = \|\mathbf{position} - \mathbf{mass2.pos}\| \).
+
+\subsection{Simulation Loop}
+\begin{lstlisting}[language=Python, breaklines=true]
+# Simulation loop
+while True:
+    rate(50)
+    
+    # Update positions of masses due to torsion "attraction"
+    r = mass1.pos - mass2.pos
+    force_magnitude = 0.1 / (mag(r)**2 + 1)  # Some arbitrary force law
+    
+    # Apply forces due to torsion-like effects
+    force = norm(r) * force_magnitude
+    mass1.velocity -= force
+    mass2.velocity += force
+
+    # Update positions
+    mass1.pos += mass1.velocity
+    mass2.pos += mass2.velocity
+
+    # Update the torsion vectors
+    for a in arrows:
+        r1 = mag(a.pos - mass1.pos)
+        r2 = mag(a.pos - mass2.pos)
+        
+        if r1 != 0:
+            direction1 = vector(-(a.pos.y - mass1.pos.y), a.pos.x - mass1.pos.x, 0) * (twist_factor / (r1 ** 2 + 1))
+        else:
+            direction1 = vector(0, 0, 0)
+        
+        if r2 != 0:
+            direction2 = vector(-(a.pos.y - mass2.pos.y), a.pos.x - mass2.pos.x, 0) * (twist_factor / (r2 ** 2 + 1))
+        else:
+            direction2 = vector(0, 0, 0)
+
+        # Update arrow directions to represent the dynamic torsion field
+        a.axis = direction1 + direction2
+\end{lstlisting}
+
+The simulation loop updates the positions of the masses based on the forces calculated from the torsion field. The force magnitude is computed using:
+
+\[
+\text{force\_magnitude} = \frac{0.1}{\|\mathbf{r}\|^2 + 1}
+\]
+
+where \(\mathbf{r}\) is the distance vector between the two masses. This force is then applied to update the velocities and positions of the masses. The loop also updates the directions of the torsion vectors to reflect changes in the masses' positions.
+
+\section{Mathematical Details}
+
+The force vectors \(\mathbf{F}_1\) and \(\mathbf{F}_2\) acting on masses \(m_1\) and \(m_2\) are derived from the contributions of all torsion vectors:
+
+\[
+\mathbf{F}_1 = \sum_{\text{all } \mathbf{r}} -\frac{k}{(r_1^2 + 1)} \cdot \frac{\mathbf{r} - \mathbf{p}_1}{r_1}
+\]
+
+\[
+\mathbf{F}_2 = \sum_{\text{all } \mathbf{r}} -\frac{k}{(r_2^2 + 1)} \cdot \frac{\mathbf{r} - \mathbf{p}_2}{r_2}
+\]
+
+where \(\mathbf{p}_1\) and \(\mathbf{p}_2\) are the positions of \(m_1\) and \(m_2\), and \(\mathbf{r}\) is the grid point.
+
+The individual force vector at each grid point is:
+
+\[
+\mathbf{F}_{i}(\mathbf{r}) = -\frac{k}{(r_i^2 + 1)} \cdot \frac{\mathbf{r} - \mathbf{p}_i}{r_i}
+\]
+
+where \(r_i\) is the distance from the grid point to mass \(i\). 
+
+\section{Conclusion}
+
+The script simulates two masses interacting within a torsion field, visualized with vector arrows. The mathematical representation of the field is designed to prevent singularities and provide a continuous force field. The visualization of the torsion vectors helps in understanding the interactions between the masses and their resultant motion.
+
+\end{document}

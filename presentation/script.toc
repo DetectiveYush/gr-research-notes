@@ -1,0 +1,4 @@
+\beamer@sectionintoc {1}{Introduction to Teleparallelism}{2}{0}{1}
+\beamer@sectionintoc {2}{Mathematical Formulation}{3}{0}{2}
+\beamer@sectionintoc {3}{Physical Interpretation}{6}{0}{3}
+\beamer@sectionintoc {4}{Visualizing with Stereographic Projection}{7}{0}{4}

@@ -1,0 +1,84 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\title{Simulation of Two Masses in a Torsion Field with Simple Harmonic Motion}
+\author{Your Name}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+This report describes a simulation of two masses interacting in a torsion field with simple harmonic motion (SHM). The simulation is implemented using VPython and demonstrates the behavior of two spheres under the influence of a dynamic torsion field.
+
+\section{Simulation Overview}
+The simulation features two masses represented as spheres in a 2D plane, subject to forces derived from a torsion field. The masses are initially at rest but are given velocities in certain configurations to observe their interaction.
+
+\section{Torsion Field}
+The torsion field is visualized using a grid of vectors that twist around each mass. The direction of each vector depends on the position relative to both masses. 
+
+For a vector originating from position $\mathbf{p}$ relative to mass $i$ positioned at $\mathbf{r}_i$, the torsion effect is given by:
+\[
+\mathbf{d}_i = \frac{- (\mathbf{p} - \mathbf{r}_i) \times \mathbf{z}}{\left\| \mathbf{p} - \mathbf{r}_i \right\|^2 + 1}
+\]
+where $\mathbf{z}$ is the unit vector perpendicular to the plane of motion (in the $z$-direction), and the direction $\mathbf{d}_i$ is scaled by the twist factor.
+
+The total direction vector $\mathbf{d}$ at each position $\mathbf{p}$ is:
+\[
+\mathbf{d} = \mathbf{d}_1 + \mathbf{d}_2
+\]
+where $\mathbf{d}_1$ and $\mathbf{d}_2$ are the contributions from mass 1 and mass 2, respectively.
+
+\section{Forces and Motion}
+The force exerted by the torsion field is derived from the gravitational-like interaction between the masses. The force magnitude is given by:
+\[
+F = \frac{0.01}{\left\| \mathbf{r} \right\|^2 + 1}
+\]
+where $\mathbf{r}$ is the vector between the two masses. The force is applied in the direction of $\mathbf{r}$, updating the velocities of the masses.
+
+\section{Collision Handling}
+Collisions between the masses are handled using an approximate elastic collision model. When the distance between the masses becomes less than the sum of their radii, the following elastic collision response is used:
+
+1. **Calculate Relative Velocity:**
+\[
+\mathbf{v}_{\text{rel}} = \mathbf{v}_1 - \mathbf{v}_2
+\]
+
+2. **Determine Normal Vector:**
+\[
+\mathbf{n} = \frac{\mathbf{r}_1 - \mathbf{r}_2}{\left\| \mathbf{r}_1 - \mathbf{r}_2 \right\|}
+\]
+
+3. **Update Velocities:**
+\[
+\mathbf{v}_1' = \mathbf{v}_1 - \frac{2 m_2}{m_1 + m_2} \frac{\mathbf{v}_{\text{rel}} \cdot \mathbf{n}}{ \left\| \mathbf{n} \right\|^2 } \mathbf{n}
+\]
+\[
+\mathbf{v}_2' = \mathbf{v}_2 + \frac{2 m_1}{m_1 + m_2} \frac{\mathbf{v}_{\text{rel}} \cdot \mathbf{n}}{ \left\| \mathbf{n} \right\|^2 } \mathbf{n}
+\]
+
+where $m_1$ and $m_2$ are the masses of the two spheres, and $\mathbf{v}_1$ and $\mathbf{v}_2$ are their respective velocities.
+
+\section{Connection to Teleparallel Equivalent of Gravity}
+The Teleparallel Equivalent of Gravity (TEG) provides an alternative formulation of gravity, using torsion instead of curvature to describe gravitational effects. In TEG, gravity is modeled as a force resulting from torsion in spacetime rather than curvature.
+
+In the context of this simulation, we can draw an analogy between the torsion field in the simulation and the torsion in TEG. Specifically, the twisting vectors in the simulation can be seen as analogous to the torsion tensor in TEG.
+
+The torsion tensor $T^\lambda_{\mu\nu}$ in TEG is defined as:
+\[
+T^\lambda_{\mu\nu} = \partial_\mu \Gamma^\lambda_{\nu\sigma} - \partial_\nu \Gamma^\lambda_{\mu\sigma}
+\]
+where $\Gamma^\lambda_{\mu\sigma}$ are the connection coefficients. This tensor represents the non-metricity and torsion in spacetime.
+
+In our simulation, the twisting effect applied to the field vectors can be related to the torsion effect in TEG. The torsion field vectors $\mathbf{d}_i$ around each mass are analogous to the torsion components in TEG that describe how spacetime twists due to the presence of mass.
+
+Thus, the dynamic torsion field in the simulation serves as a simplified model to visualize how torsion (or rotational effects) can influence objects in space, similar to how TEG uses torsion to describe gravitational interactions. The mathematical link between the torsion field vectors in the simulation and the torsion tensor in TEG highlights the fundamental concept of torsion affecting motion and interaction.
+
+\section{Conclusion}
+The simulation effectively demonstrates the interaction of two masses in a dynamic torsion field, with the implemented collision model providing a reasonable approximation of elastic collisions. The connection to the Teleparallel Equivalent of Gravity (TEG) shows how torsion, both in our simulation and in theoretical physics, can describe interactions in a rotational or twisting manner. Further refinement of the collision response and a deeper exploration of torsion in physics could enhance our understanding and simulation accuracy.
+
+\end{document}

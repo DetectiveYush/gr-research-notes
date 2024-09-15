@@ -1,0 +1,92 @@
+\documentclass{article}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{caption}
+
+\title{Simulation of Two Masses in a Torsion Field with Simple Harmonic Motion}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+This report details the simulation of two masses interacting in a torsion field using VPython. The simulation demonstrates the masses spiraling around each other within a dynamically evolving field of vectors, providing a visual representation of a simplified force model. 
+
+\section{Simulation Details}
+
+\subsection{Setup and Parameters}
+The simulation creates two masses, represented as spheres, with initial small velocities directed towards each other but not directly aligned. The parameters for the torsion field and gravitational-like force are set as follows:
+\begin{itemize}
+    \item \textbf{Grid Range:} 10 (Defining the extent of the field visualization)
+    \item \textbf{Spacing:} 1 (Distance between field vectors)
+    \item \textbf{Twist Factor:} 2 (Determines the strength of the torsion effect)
+    \item \textbf{Force Magnitude:} 0.1 (Defines the strength of the interaction force)
+\end{itemize}
+
+\subsection{Field Representation}
+The torsion field is visualized using a grid of arrows that represent the direction and magnitude of the force at various points in space. The force field is calculated as follows:
+
+\begin{align}
+\mathbf{F}_1 &= -\frac{k_1}{r_1^2 + 1} \frac{(\mathbf{r} - \mathbf{p}_1) \times \mathbf{z}}{|\mathbf{r} - \mathbf{p}_1|} \\
+\mathbf{F}_2 &= -\frac{k_2}{r_2^2 + 1} \frac{(\mathbf{r} - \mathbf{p}_2) \times \mathbf{z}}{|\mathbf{r} - \mathbf{p}_2|}
+\end{align}
+
+where:
+\begin{itemize}
+    \item $\mathbf{F}_1$ and $\mathbf{F}_2$ are the torsion forces due to each mass.
+    \item $\mathbf{r}$ is the position vector of the field point.
+    \item $\mathbf{p}_1$ and $\mathbf{p}_2$ are the positions of the masses.
+    \item $k_1$ and $k_2$ are the twist factors.
+    \item $r_1$ and $r_2$ are the distances from the point to the masses.
+\end{itemize}
+
+The total force at any point is the vector sum of these two contributions:
+\begin{align}
+\mathbf{F}_{\text{total}} = \mathbf{F}_1 + \mathbf{F}_2
+\end{align}
+
+\subsection{Motion and Interaction}
+The simulation loop updates the positions and velocities of the masses based on the forces applied. The gravitational-like force between the masses is given by:
+\begin{align}
+\mathbf{F} = \frac{0.1}{(\mathbf{r}_{12}^2 + 1)} \hat{\mathbf{r}}_{12}
+\end{align}
+where $\mathbf{r}_{12}$ is the vector between the masses and $\hat{\mathbf{r}}_{12}$ is its unit vector.
+
+\subsection{Elastic Collisions}
+Collisions are handled elastically:
+\begin{align}
+\mathbf{v}_1' &= \frac{(m_1 - m_2) \mathbf{v}_1 + 2 m_2 \mathbf{v}_2}{m_1 + m_2} \\
+\mathbf{v}_2' &= \frac{(m_2 - m_1) \mathbf{v}_2 + 2 m_1 \mathbf{v}_1}{m_1 + m_2}
+\end{align}
+where $\mathbf{v}_1$ and $\mathbf{v}_2$ are the velocities before the collision, and $\mathbf{v}_1'$ and $\mathbf{v}_2'$ are the velocities after the collision.
+
+\section{Connection to Teleparallel Equivalent of Gravity}
+
+Teleparallel Equivalent of Gravity (TEGR) is a theory where gravity is described not by curvature but by torsion in spacetime. In TEGR, the gravitational interaction is related to the torsion of spacetime rather than its curvature. 
+
+In your simulation, the torsion field can be viewed as a simplified model of spacetime torsion. To relate this simulation to TEGR, consider the following steps:
+
+\subsection{Mathematical Link}
+In TEGR, the torsion tensor \( T^\lambda_{\mu\nu} \) is defined as:
+\begin{align}
+T^\lambda_{\mu\nu} = \partial_\mu \Gamma^\lambda_{\nu\nu} - \partial_\nu \Gamma^\lambda_{\mu\nu} + \Gamma^\lambda_{\mu\sigma} \Gamma^\sigma_{\nu\nu} - \Gamma^\lambda_{\nu\sigma} \Gamma^\sigma_{\mu\nu}
+\end{align}
+where \( \Gamma^\lambda_{\mu\nu} \) are the connection coefficients.
+
+The force in the simulation can be connected to torsion by considering the field vectors as representing the influence of torsion on the trajectories of the masses. The equations governing the interaction in your simulation can be related to the force laws derived from the torsion tensor.
+
+\subsection{Implementation}
+To model TEGR in the simulation:
+\begin{itemize}
+    \item Define a torsion field corresponding to the spacetime torsion.
+    \item Adjust the force laws in the simulation to reflect the contributions from spacetime torsion rather than a simple inverse-square law.
+    \item Analyze the trajectories and interactions in the context of torsion effects, analogous to how TEGR modifies the Einstein field equations in general relativity.
+\end{itemize}
+
+\section{Conclusion}
+The simulation provides a visual and quantitative model of masses interacting under a torsion field, with dynamics governed by simplified force laws. By connecting these dynamics to Teleparallel Equivalent of Gravity, one can gain insights into how torsion effects might influence gravitational interactions in more complex theoretical frameworks.
+
+\end{document}

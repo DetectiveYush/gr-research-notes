@@ -1,0 +1,91 @@
+\documentclass{beamer}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\title{Understanding Teleparallel Gravity}
+\author{Your Name}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section{Introduction to Teleparallelism}
+\begin{frame}
+  \frametitle{Introduction to Teleparallelism}
+  Teleparallel Gravity is an alternative formulation of gravity where the curvature of spacetime is replaced by torsion. In this framework:
+  \begin{itemize}
+    \item Gravity is encoded in torsion rather than curvature.
+    \item We work within flat Minkowski spacetime.
+    \item This simplifies the mathematical treatment by using a torsion-based description of gravity.
+  \end{itemize}
+\end{frame}
+
+\section{Mathematical Formulation}
+\begin{frame}
+  \frametitle{Levi-Civita Connection}
+  The traditional Levi-Civita connection in General Relativity is given by:
+  \[
+  \Gamma^\lambda_{\mu \nu} = \frac{1}{2} g^{\lambda \sigma} \left( \frac{\partial g_{\sigma \mu}}{\partial x^\nu} + \frac{\partial g_{\sigma \nu}}{\partial x^\mu} - \frac{\partial g_{\mu \nu}}{\partial x^\sigma} \right)
+  \]
+  where:
+  \begin{itemize}
+    \item $g_{\mu \nu}$ is the metric tensor.
+    \item $g^{\lambda \sigma}$ is the inverse metric tensor.
+    \item $\frac{\partial g_{\sigma \mu}}{\partial x^\nu}$ are the partial derivatives of the metric components.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Weitzenböck Connection}
+  In Teleparallel Gravity, we use the Weitzenböck connection, which involves torsion and is defined as:
+  \[
+  \overset{\star}{\Gamma}^\lambda_{\mu \nu} = \frac{1}{2} \left( \overset{\star}{T}^\lambda_{\mu \nu} + \overset{\star}{T}^\lambda_{\nu \mu} - \overset{\star}{T}_{\mu \nu}^{\phantom{\mu \nu}\lambda} \right)
+  \]
+  where $\overset{\star}{T}^\lambda_{\mu \nu}$ represents the torsion tensor components.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Connecting Levi-Civita and Weitzenböck Connections}
+  The Levi-Civita connection ($\Gamma^\lambda_{\mu \nu}$) involves curvature and is used in General Relativity. In contrast, the Weitzenböck connection ($\overset{\star}{\Gamma}^\lambda_{\mu \nu}$) is used in Teleparallel Gravity and involves torsion.
+
+  Specifically, the contortion tensor, which relates these connections, is given by:
+  \[
+  K^\rho_{\mu \nu} = \frac{1}{2} \left( T^\rho_{\nu \mu} + T^\rho_{\mu \nu} - T_{\mu \nu}^\rho \right)
+  \]
+  where:
+  \begin{itemize}
+    \item $K^\rho_{\mu \nu}$ is the contortion tensor.
+    \item $T^\rho_{\mu \nu}$ represents the components of the torsion tensor.
+  \end{itemize}
+  This formula is cited from Page 9 of Aldrovandi and Pereira’s book \cite{AldrovandiPereira}.
+\end{frame}
+
+\section{Physical Interpretation}
+\begin{frame}
+  \frametitle{Physical Interpretation}
+  \begin{itemize}
+    \item In General Relativity, the Christoffel symbols describe how vectors change in curved spacetime.
+    \item In Teleparallel Gravity, the Weitzenböck connection in flat spacetime describes gravitational effects using torsion.
+    \item This formulation simplifies the equations and helps to visualize gravity as a property of flat spacetime with torsion.
+  \end{itemize}
+\end{frame}
+
+\section{Visualizing with Stereographic Projection}
+\begin{frame}
+  \frametitle{Stereographic Projection}
+  Stereographic projection can be used to illustrate the effects of torsion:
+  \begin{itemize}
+    \item This projection maps a spherical surface to a plane, helping to demonstrate the difference between curvature and torsion.
+    \item Geodesic and non-geodesic paths on the sphere can represent the effects of torsion, illustrating how torsion affects trajectories differently compared to curvature.
+  \end{itemize}
+\end{frame}
+
+\begin{thebibliography}{10}
+  \bibitem{AldrovandiPereira}
+    R. Aldrovandi and J. G. Pereira, \textit{An Introduction to Teleparallel Gravity}, pg. 9.
+\end{thebibliography}
+
+\end{document}
