@@ -1,6 +1,7 @@
 This project aims to explore some GR ideas.
 
-Link for collaborators "https://umassd-my.sharepoint.com/:o:/g/personal/aaggarwal1_umassd_edu/EvFEsPzcZVZKpkR3hc3oTw4BguqnUmICTqMe-nbXkuqhfg?email=david.kagan%40umassd.edu&e=NvBqHl"
+Link for collaborators "https://umassd-my.sharepoint.com/personal/aaggarwal1_umassd_edu/_layouts/OneNote.aspx?id=%2Fpersonal%2Faaggarwal1_umassd_edu%2FDocuments%2FNotebooks%2Fgr-research&wd=target%28MS%20Project.one%7C592778EE-B21E-4C1E-AED1-7E8920827113%2F%29
+onenote:https://umassd-my.sharepoint.com/personal/aaggarwal1_umassd_edu/Documents/Notebooks/gr-research/MS%20Project.one#section-id={592778EE-B21E-4C1E-AED1-7E8920827113}&end"
 
 Links to Dr Kagan's Lectures on GR
 
